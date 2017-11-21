@@ -18,7 +18,7 @@ import AddDeck from './components/AddDeck';
 import AddCard from './components/AddCard';
 import Notifications from './components/Notifications';
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { getAllDecks, deleteDeck, newDeck } from './utils/storage';
+import { getAllDecks, deleteDeck, newDeck, newCard } from './utils/storage';
 
 
 
@@ -148,6 +148,14 @@ export default class App extends React.Component {
     newDeck(entry, key);
   }
 
+  addCard = (entry, key) => {
+    let decks = Object.assign({}, this.state.decks);
+    decks[key].questions.push(entry);
+    console.log(decks);
+    this.setState(decks);
+    newCard(entry, key);
+  }
+
   state = {
     decks: []
   };
@@ -156,7 +164,7 @@ export default class App extends React.Component {
     return (
         <View style={{flex: 1}}>
           <FlashCardStatusBar/>
-          <MainNavigator screenProps={ {decks: this.state.decks, deleteDeck: this.removeDeck, addDeck: this.addDeck}}/>
+          <MainNavigator screenProps={ {decks: this.state.decks, deleteDeck: this.removeDeck, addDeck: this.addDeck, addCard: this.addCard}}/>
         </View>
     );
   }

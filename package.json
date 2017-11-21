@@ -24,6 +24,7 @@
     "react-native": "^0.48.4",
     "react-native-modal-datetime-picker": "^4.13.0",
     "react-navigation": "latest",
-    "styled-components": "latest"
+    "styled-components": "latest",
+    "react-native-flip-card": "latest"
   }
 }

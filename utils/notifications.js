@@ -8,8 +8,8 @@ export function clearLocalNotification() {
     Notifications.cancelAllScheduledNotificationsAsync();
 }
 
-//
-function createNotification(title) {
+
+createNotification = (title) => {
     return {
         title: `${title}: Study time!`,
         body: `📖 Don't forget to study ${title} today`,

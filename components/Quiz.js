@@ -4,6 +4,7 @@ import { NavigationActions, StackNavigator } from 'react-navigation';
 import styled from 'styled-components/native';
 import { getDeck } from '../utils/storage';
 import { clearTodaysNotifications } from '../utils/notifications';
+import FlipCard from 'react-native-flip-card'
 
 class Quiz extends Component {
 
@@ -130,24 +131,28 @@ class Quiz extends Component {
           <H2>{ this.state.correct } correct,  { this.state.incorrect } incorrect</H2>
         </Section>
         <CardSection>
-          <Card onPress={() => this.toggleAnswer()}>
-          <CardContent>
-          { (this.state.showAnswer) ? (
-            <View>
-            <H2>Answer:</H2>
-              <CeterText>{(this.state.deckInfo.questions.length > 0 ) ? this.state.deckInfo.questions[this.state.currentCard].card.answer : ""}</CeterText>
-              <SmallText>(Tap to go back to the question)</SmallText>
-            </View>
-            ) : (
-            <View>
+          <FlipCard 
+            style={{borderRadius: 5, borderWidth: 1, flex: 4, justifyContent: "center", alignItems: "center"}}
+            friction={10}
+            perspective={5000}
+            flipHorizontal={true}
+            flipVertical={true}
+            flip={false}
+            clickable={true}
+          >
+            {/* Face Side */}
+            <CardContent>
+              <H2>Question:</H2>
               <CeterText>{ (this.state.deckInfo.questions.length > 0 ) ? this.state.deckInfo.questions[this.state.currentCard].card.question : "" }</CeterText>
               <SmallText>(Tap to see the answer)</SmallText>
-            </View>
-            
-            )}
             </CardContent>
-
-          </Card>
+            {/* Back Side */}
+            <CardContent>
+              <H2>Answer:</H2>
+              <CeterText>{(this.state.deckInfo.questions.length > 0 ) ? this.state.deckInfo.questions[this.state.currentCard].card.answer : ""}</CeterText>
+              <SmallText>(Tap to go back to the question)</SmallText>
+            </CardContent>
+          </FlipCard>
         </CardSection>
         <Section>
           <CeterText>Did you get the answer correct?</CeterText>
@@ -201,22 +206,10 @@ const Section = styled.View`
 const CardSection = styled.View`
   margin-bottom: 15px;
   margin-top: 10px;
-  flex: 3;
-  align-items: center;
+  flex: 5;
+  align-items: stretch;
 `;
 
-const Card = styled.TouchableOpacity`
-  margin: 10px;
-  border-width: 1px;
-  border-radius: 5px;
-  border-color: #2e2e2e;
-  width: 90%;
-  height: 100%;
-  padding: 90px 30px;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
 
 const Button = styled.TouchableHighlight`
   margin: 10px;
@@ -246,4 +239,7 @@ const SmallText = styled.Text`
 const CardContent = styled.View`
   width: 100%;
   height: 100px;
+  margin: 10px 30px;
+  flex: 1;
+  justify-content: center;
 `;

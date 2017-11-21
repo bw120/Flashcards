@@ -18,6 +18,13 @@ class Decks extends Component {
 	    }
     };
 
+	componentWillUnmount =  () => {
+		Object.keys(this.props.screenProps.decks).forEach((item) => { 
+			this.state.opacity[item].removeAllListeners();
+			this.state.color[item].removeAllListeners();
+		});
+	}
+
 	state = {
 		opacity: {},
 		color: {}

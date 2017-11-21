@@ -30,7 +30,7 @@ class AddCard extends Component {
                 question: this.state.question,
                 answer: this.state.answer
             }
-            newCard(question, this.props.navigation.state.params.deckTitle);
+            this.props.screenProps.addCard(question, this.props.navigation.state.params.deckTitle);
             return true;
         }
 
@@ -45,18 +45,12 @@ class AddCard extends Component {
     //save and return home
     returnHome = () => {
         if (this.saveCard()) {
-            const resetAction = NavigationActions.reset({
-                index: 0,
-                actions: [
-                    NavigationActions.navigate({ routeName: 'Home' })
-                ]
-            });
-
-            this.props.navigation.dispatch(resetAction);
+            this.props.navigation.navigate('DeckOverview', {name: this.props.navigation.state.params.deckTitle});
         }
     }
 
     render() {
+    	console.log(this.props)
         return (
             <ScrollView>
             <Container>
@@ -84,7 +78,7 @@ class AddCard extends Component {
 				          <CeterText>Save, Add New Question</CeterText>
 			          </Button>
 				      <Button onPress={() => (this.returnHome())}>
-				          <CeterText>Save, Return to Dashboard</CeterText>
+				          <CeterText>Save, Return to Deck</CeterText>
 			          </Button>
 		          </Section>
 

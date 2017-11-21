@@ -31,9 +31,6 @@ class DeckOverview extends Component {
     }
 
     deleteDeck = () => {
-        this.props.screenProps.deleteDeck(this.state.deckInfo.title);
-        this.activateModal(false);
-
         const resetAction = NavigationActions.reset({
             index: 0,
             actions: [
@@ -41,22 +38,27 @@ class DeckOverview extends Component {
             ]
         })
         this.props.navigation.dispatch(resetAction);
+        this.props.screenProps.deleteDeck(this.props.screenProps.decks[this.props.navigation.state.params.name].title);
+        this.activateModal(false);
     }
 
     render() {
+    	const title = (this.props.screenProps.decks[this.props.navigation.state.params.name]) ? this.props.screenProps.decks[this.props.navigation.state.params.name].title : "";
+    	const questions = (this.props.screenProps.decks[this.props.navigation.state.params.name]) ? this.props.screenProps.decks[this.props.navigation.state.params.name].questions : [];
+
         return (
             <ScrollView>
             <Container>
 	    	<InnerContainer>
 	    		<Section>
-					<H1>{this.state.deckInfo.title}</H1>
-					<Cards>{ this.state.deckInfo.questions.length } Cards</Cards>
+					<H1>{title}</H1>
+					<Cards>{ questions.length } Cards</Cards>
 					{
-						(this.state.deckInfo.questions.length > 0) ? (
+						(questions.length > 0) ? (
 					
 					<Button underlayColor='#ff5104'
-							title={this.state.deckTitle}
-					        onPress={() => this.startQuiz(this.state.deckInfo.title) }
+							title={title}
+					        onPress={() => this.startQuiz(title) }
 					>
 				  	<CeterText>
 				  	 Start Quiz
@@ -64,8 +66,8 @@ class DeckOverview extends Component {
 		          	</Button>
 		          	) : (
 					<Button underlayColor='#ff5104'
-							title={this.state.deckTitle}
-					        onPress={() => this.addCard(this.state.deckInfo.title)}
+							title={title}
+					        onPress={() => this.addCard(title)}
 					>
 				  	<CeterText>
 				  	 Add Cards
@@ -76,7 +78,7 @@ class DeckOverview extends Component {
 	          	</Section>
 	          	<Section>
 	          	<H2>Options</H2>
-	          		<OptionButton onPress={() => this.addCard(this.state.deckInfo.title)}>
+	          		<OptionButton onPress={() => this.addCard(title)}>
 		          		<Option>Add Card</Option>
 	          		</OptionButton>
 	          		<OptionButton onPress={() => this.activateModal(true)}>

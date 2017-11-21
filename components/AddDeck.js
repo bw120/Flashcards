@@ -29,7 +29,7 @@ class AddDeck extends Component {
 					questions: []
 			}
 			this.props.screenProps.addDeck(deckInfo, deckInfo.title);
-			this.props.navigation.navigate('AddCard', {deckTitle: this.state.name});
+			this.props.navigation.navigate('DeckOverview', {name: this.state.name});
 		}
 	}
 
@@ -49,7 +49,7 @@ class AddDeck extends Component {
 			      
 			      <Section>
 				      <Button onPress={() => (this.createDeck())}>
-				          <CeterText>Save and Add Cards</CeterText>
+				          <CeterText>Save</CeterText>
 			          </Button>
 		          </Section>
 
